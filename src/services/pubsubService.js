@@ -9,6 +9,7 @@ const ipfs = new IPFS({
     config: {
         Addresses: {
             Swarm: [
+                '/ip4/0.0.0.0/tcp/4001',
                 '/dns4/wrtc-star.discovery.libp2p.io/tcp/443/wss/p2p-webrtc-star'
             ]
         }
