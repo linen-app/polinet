@@ -1,5 +1,6 @@
 import React from 'react';
-import { submitOrder } from '../pubsub.js'
+import { submitOrder } from '../services/pubsubService.js'
+import { validateOrderAsync, parseJsonOrder } from '../services/dharmaService.js'
 
 export default class OrderImport extends React.Component {
   constructor(props) {
@@ -17,14 +18,22 @@ export default class OrderImport extends React.Component {
   }
 
   handleSubmit(event) {
-    submitOrder(this.state.value);
     event.preventDefault();
+    const jsonOrder = this.state.value;
+    parseJsonOrder(jsonOrder)
+      .then(validateOrderAsync)
+      .then(submitOrder)
+      .then(() => this.setState({ value: '' }))
+      .catch(e => {
+        console.error(e);
+        alert(e);
+      });
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <p> Order JSON: </p>
+        <p> Submit Order JSON: </p>
         <textarea value={this.state.value} onChange={this.handleChange} />
         <input type="submit" value="Submit order" />
       </form>
