@@ -18,6 +18,7 @@ const ipfs = new IPFS({
 
 var _room = null;
 var _callback = null;
+var _peerCallback = null;
 
 ipfs.once('ready', () => ipfs.id((err, info) => {
     if (err) { throw err }
@@ -27,14 +28,26 @@ ipfs.once('ready', () => ipfs.id((err, info) => {
 
     room.on('subscribed', () => {
         console.log('Now connected!')
-        if(_callback){
-            subscribeInternal(_callback)
-        }
     })
 
-    room.on('peer joined', (peer) => console.log('peer ' + peer + ' joined'))
-    room.on('peer left', (peer) => console.log('peer ' + peer + ' left'))
-    room.on('message', (message) => console.log('got message from ' + message.from + ': ' + message.data.toString()))
+    room.on('peer joined', (peer) => {
+        console.log('peer ' + peer + ' joined')
+        if (_peerCallback) {
+            _peerCallback(+1)
+        }
+    })
+    room.on('peer left', (peer) => {
+        console.log('peer ' + peer + ' left')
+        if (_peerCallback) {
+            _peerCallback(-1)
+        }
+    })
+    room.on('message', (message) => {
+        console.log('got message from ' + message.from + ': ' + message.data.toString())
+        if (_callback) {
+            _callback(message.data.toString())
+        }
+    })
 
     _room = room;
 }))
@@ -48,16 +61,10 @@ export function submitOrder(order) {
     _room.broadcast(message)
 }
 
-export function subscribe(callback) {
-    if (_room) {
-        subscribeInternal(callback)
-    } else {
-        _callback = callback;
-    }
+export function subscribePeers(callback) {
+    _peerCallback = callback;
 }
 
-function subscribeInternal(callback) {
-    _room.on('message', (msg) => {
-        callback(msg.data.toString())
-    });
+export function subscribe(callback) {
+    _callback = callback;
 }
