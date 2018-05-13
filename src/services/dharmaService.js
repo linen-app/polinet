@@ -50,7 +50,6 @@ export function convertToJson(order) {
 export async function validateOrderAsync(debtOrder) {
   const txOptions = { from: debtOrder.creditor }
   await dharma.order.assertValidAsync(debtOrder, txOptions);
-  console.log('Order is valid.');
 
   return debtOrder;
 }
