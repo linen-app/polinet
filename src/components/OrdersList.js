@@ -1,6 +1,6 @@
 import React from 'react';
 import { subscribe } from '../services/pubsubService.js'
-import { parseJsonOrder } from '../services/dharmaService.js';
+import { parseJsonOrder, convertToJson } from '../services/dharmaService.js';
 import './OrdersList.css'
 
 class OrderRow extends React.Component {
@@ -29,7 +29,7 @@ class OrderTable extends React.Component {
             }
             rows.push(
                 <OrderRow
-                    order={order}
+                    order={convertToJson(order)}
                     key={order.hash}
                 />
             );

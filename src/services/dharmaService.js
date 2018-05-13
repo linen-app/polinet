@@ -26,6 +26,27 @@ export async function parseJsonOrder(json) {
   return dharmaDebtOrder;
 }
 
+export function convertToJson(order) {
+  const result = {
+    ...order,
+    principalAmount: order.principalAmount.toNumber(),
+    debtorFee: order.debtorFee.toNumber(),
+    creditorFee: order.creditorFee.toNumber(),
+    relayerFee: order.relayerFee.toNumber(),
+    underwriterFee: order.underwriterFee.toNumber(),
+    underwriterRiskRating: order.underwriterRiskRating.toNumber(),
+    salt: order.salt.toNumber(),
+    expirationTimestampInSec: order.expirationTimestampInSec.toNumber(),
+    debtorSignature: JSON.stringify(order.debtorSignature),
+    creditorSignature: JSON.stringify(order.creditorSignature),
+    underwriterSignature: JSON.stringify(order.underwriterSignature)
+  }
+
+  delete result.hash;
+
+  return result;
+}
+
 export async function validateOrderAsync(debtOrder) {
   const txOptions = { from: debtOrder.creditor }
   await dharma.order.assertValidAsync(debtOrder, txOptions);
