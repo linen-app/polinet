@@ -18,3 +18,17 @@ A browser version _libp2p pubsub_ is not so mature, so we decided to use a more 
 
 ## What's next for Bloqboard PoliNet
 We will continue developing POLINET to integrate it with the token lending and trading protocols.
+
+## Development
+Run it locally:
+```
+yarn && yarn start
+```
+
+Publish it to IPFS:
+```
+ipfs daemon
+yarn build
+npm install ipscend --global
+ipscend publish
+```
