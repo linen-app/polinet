@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import OrderImport from './components/OrderImport.js'
+import OrdersList from './components/OrdersList.js'
 
 class App extends Component {
   render() {
@@ -9,8 +10,8 @@ class App extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to POLINET</h1>
         </header>
-
-        <OrderImport/>
+        <OrderImport />
+        <OrdersList/>
       </div>
     );
   }

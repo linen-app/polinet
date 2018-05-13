@@ -1,0 +1,12 @@
+.div-table {
+    width: 100%;         
+}
+
+.div-table-row {
+    width: 100%;
+}
+
+.div-table-col {
+    width: 50%;
+    word-break: break-all;
+}

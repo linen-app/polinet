@@ -16,6 +16,7 @@ const ipfs = new IPFS({
 })
 
 var _room = null;
+var _callback = null;
 
 ipfs.once('ready', () => ipfs.id((err, info) => {
     if (err) { throw err }
@@ -25,6 +26,9 @@ ipfs.once('ready', () => ipfs.id((err, info) => {
 
     room.on('subscribed', () => {
         console.log('Now connected!')
+        if(_callback){
+            subscribeInternal(_callback)
+        }
     })
 
     room.on('peer joined', (peer) => console.log('peer ' + peer + ' joined'))
@@ -38,7 +42,21 @@ function repo() {
     return 'ipfs/polinet/' + Math.random()
 }
 
-export function submitOrder(order){
-    const message = JSON.stringify(order)
+export function submitOrder(order) {
+    const message = order;
     _room.broadcast(message)
+}
+
+export function subscribe(callback) {
+    if (_room) {
+        subscribeInternal(callback)
+    } else {
+        _callback = callback;
+    }
+}
+
+function subscribeInternal(callback) {
+    _room.on('message', (msg) => {
+        callback(msg.data.toString())
+    });
 }

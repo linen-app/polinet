@@ -5,10 +5,6 @@ if (typeof window.web3 !== 'undefined') {
   if (!defaultAccount) {
     alert('Please, log in Metamask, choose Kovan network and reload the page.');
   }
-  if (getNetwork() !== 42) {
-    alert('Please, choose Kovan test network.')
-  }
-  console.log('provider is metamask: ', window.web3.currentProvider.isMetaMask);
   window.web3 = new Web3(window.web3.currentProvider);
   window.web3.eth.defaultAccount = defaultAccount;
 } else {

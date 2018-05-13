@@ -1,10 +1,10 @@
-import Dharma from "@dharmaprotocol/dharma.js"
+import Dharma from '@dharmaprotocol/dharma.js'
 import currentProvider from './web3Service.js'
 import BigNumber from 'bignumber.js'
 
 const dharma = new Dharma(currentProvider);
 
-export function parseJsonOrder(json) {
+export async function parseJsonOrder(json) {
   const jsonOrder = JSON.parse(json)
   const dharmaDebtOrder = {
     ...jsonOrder,
@@ -21,7 +21,9 @@ export function parseJsonOrder(json) {
     expirationTimestampInSec: new BigNumber(jsonOrder.expirationTimestampInSec)
   };
 
-  return Promise.resolve(dharmaDebtOrder);
+  dharmaDebtOrder.hash = await dharma.order.getIssuanceHash(dharmaDebtOrder);
+
+  return dharmaDebtOrder;
 }
 
 export async function validateOrderAsync(debtOrder) {

@@ -22,7 +22,7 @@ export default class OrderImport extends React.Component {
     const jsonOrder = this.state.value;
     parseJsonOrder(jsonOrder)
       .then(validateOrderAsync)
-      .then(submitOrder)
+      .then(() => submitOrder(jsonOrder))
       .then(() => this.setState({ value: '' }))
       .catch(e => {
         console.error(e);
