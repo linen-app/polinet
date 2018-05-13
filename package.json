@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "./",
   "dependencies": {
     "@dharmaprotocol/dharma.js": "https://github.com/confirmationlabs/dharma.js",
     "autoprefixer": "7.1.6",
