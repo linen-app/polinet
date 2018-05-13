@@ -1,12 +1,12 @@
 import React from 'react';
 import { subscribe } from '../services/pubsubService.js'
-import { parseJsonOrder, convertToJson } from '../services/dharmaService.js';
+import { parseJsonOrder, convertToJson, validateOrderAsync } from '../services/dharmaService.js';
 import './OrdersList.css'
 
 class OrderRow extends React.Component {
     render() {
         const order = this.props.order;
-        const hash = order.hash;
+        const hash = this.props.hash;
 
         return (
             <tr>
@@ -30,6 +30,7 @@ class OrderTable extends React.Component {
             rows.push(
                 <OrderRow
                     order={convertToJson(order)}
+                    hash={order.hash}
                     key={order.hash}
                 />
             );
@@ -84,12 +85,23 @@ export default class OrdersList extends React.Component {
         subscribe(message => {
             parseJsonOrder(message).then((order) => {
                 this.setState(prevState => ({
-                    orders: {...prevState.orders, [order.hash]: order}
+                    orders: { ...prevState.orders, [order.hash]: order }
                 }))
             });
         });
 
         this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+
+        setInterval(() => {
+            const orders = Object.values(this.state.orders);
+            const orderPromises = orders.map(order => validateOrderAsync(order).catch(() => null));
+            Promise.all(orderPromises)
+                .then(orders => orders.filter(x => x))
+                .then(orders => {
+                    console.log(`Filtered orders length: ${orders.length}`)
+                    this.setState({ orders })
+                });
+        }, 3000)
     }
 
     handleFilterTextChange(filterText) {
