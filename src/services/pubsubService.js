@@ -24,7 +24,7 @@ ipfs.once('ready', () => ipfs.id((err, info) => {
     if (err) { throw err }
     console.log('IPFS node ready with address ' + info.id)
 
-    const room = Room(ipfs, 'ipfs-polinet-kovan')
+    const room = Room(ipfs, 'polinet/v0/dharma/kovan')
 
     room.on('subscribed', () => {
         console.log('Now connected!')
