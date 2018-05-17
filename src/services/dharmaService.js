@@ -1,8 +1,8 @@
 import Dharma from '@dharmaprotocol/dharma.js'
-import currentProvider from './web3Service.js'
+import { getCurrentProvider } from './web3Service.js'
 import BigNumber from 'bignumber.js'
 
-const dharma = new Dharma(currentProvider);
+const dharma = new Dharma(getCurrentProvider());
 
 export async function parseJsonOrder(jsonOrder) {
   const dharmaDebtOrder = {

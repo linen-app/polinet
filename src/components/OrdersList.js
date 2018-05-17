@@ -82,8 +82,8 @@ export default class OrdersList extends React.Component {
             orders: {}
         };
 
-        subscribe(message => 
-            parseJsonOrder(message).then((order) => {
+        subscribe(orderJson => 
+            parseJsonOrder(orderJson).then((order) => {
                 this.setState(prevState => ({
                     orders: Object.assign({ [order.hash]: order }, prevState.orders)
                 }))
