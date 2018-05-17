@@ -19,7 +19,7 @@ export default class OrderImport extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const jsonOrder = this.state.value;
+    const jsonOrder = JSON.parse(this.state.value);
     parseJsonOrder(jsonOrder)
       .then(validateOrderAsync)
       .then(() => submitOrder(jsonOrder))
