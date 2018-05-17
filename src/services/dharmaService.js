@@ -4,8 +4,7 @@ import BigNumber from 'bignumber.js'
 
 const dharma = new Dharma(currentProvider);
 
-export async function parseJsonOrder(json) {
-  const jsonOrder = JSON.parse(json)
+export async function parseJsonOrder(jsonOrder) {
   const dharmaDebtOrder = {
     ...jsonOrder,
     principalAmount: new BigNumber(jsonOrder.principalAmount || 0),
