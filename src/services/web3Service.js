@@ -2,11 +2,10 @@ import Web3 from 'web3';
 
 let web3;
 
-console.log('undefined' !== typeof window)
 if ('undefined' !== typeof window) {
   window.addEventListener('load', function () {
     if (typeof window.web3 !== 'undefined') {
-      web3 = window.web3 = new Web3(window.web3.currentProvider);
+      web3 = new Web3(window.web3.currentProvider);
     } else {
       alert('Please, install metamask.io extension in your browser.');
     }
@@ -16,7 +15,7 @@ if ('undefined' !== typeof window) {
     web3 = new Web3(web3.currentProvider);
   } else {
     console.log('Connecting to local ethereum node...')
-    web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+    web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/UMV5skoKAItFjpuMM5wq"));
   }
 }
 
