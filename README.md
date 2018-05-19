@@ -20,6 +20,7 @@ A browser version _libp2p pubsub_ is not so mature, so we decided to use a more 
 We will continue developing POLINET to integrate it with the token lending and trading protocols.
 
 ## Development
+### Web version
 Run it locally:
 ```
 yarn && yarn start
@@ -31,4 +32,10 @@ ipfs daemon
 yarn build
 npm install ipscend --global
 ipscend publish
+```
+
+### Node.js version
+Run it locally:
+```
+NODE_ENV=production node start.js
 ```
