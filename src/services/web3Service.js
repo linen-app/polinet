@@ -14,7 +14,6 @@ if ('undefined' !== typeof window) {
   if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
   } else {
-    console.log('Connecting to local ethereum node...')
     web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/UMV5skoKAItFjpuMM5wq"));
   }
 }

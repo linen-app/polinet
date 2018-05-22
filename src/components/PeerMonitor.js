@@ -6,7 +6,9 @@ export default class PeerMonitor extends React.Component {
     constructor(props) {
         super(props);
         this.state = { peerCount: 0 };
+    }
 
+    componentDidMount() {
         subscribePeers(inc => this.setState((prevState) =>
             ({
                 peerCount: prevState.peerCount + inc
