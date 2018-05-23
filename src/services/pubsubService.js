@@ -1,6 +1,6 @@
 import IPFS from 'ipfs'
 import Room from 'ipfs-pubsub-room'
-import { convertToJson } from './dharmaService.js'
+import { convertToJson } from './0xService.js'
 
 const ipfs = new IPFS({
     repo: repo(),
@@ -18,7 +18,7 @@ const ipfs = new IPFS({
     }
 })
 
-const TOPIC = 'polinet/v0/dharma/kovan';
+const TOPIC = 'polinet/v0/0x/kovan';
 
 var _room = null;
 var _messageCallback = null;

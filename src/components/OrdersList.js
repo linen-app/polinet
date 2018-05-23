@@ -1,6 +1,6 @@
 import React from 'react';
 import { subscribe } from '../services/pubsubService.js'
-import { parseJsonOrder, convertToJson, validateOrderAsync } from '../services/dharmaService.js';
+import { parseJsonOrder, convertToJson, validateOrderAsync } from '../services/0xService.js';
 import './OrdersList.css'
 
 class OrderRow extends React.Component {

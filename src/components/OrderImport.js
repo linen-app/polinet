@@ -1,6 +1,6 @@
 import React from 'react';
 import { submitOrder } from '../services/pubsubService.js'
-import { validateOrderAsync, parseJsonOrder } from '../services/dharmaService.js'
+import { validateOrderAsync, parseJsonOrder } from '../services/0xService.js'
 
 export default class OrderImport extends React.Component {
   constructor(props) {

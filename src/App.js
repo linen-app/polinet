@@ -9,7 +9,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1 className="App-title">Welcome to POLINET</h1>
+          <h1 className="App-title">Welcome to POLINET: 0x edition!</h1>
         </header>
         <PeerMonitor/>
         <OrderImport/>
