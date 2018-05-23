@@ -5,9 +5,8 @@ import { InjectedWeb3Subprovider } from '@0xproject/subproviders';
 import * as RPCSubprovider from 'web3-provider-engine/subproviders/rpc';
 import BigNumber from 'bignumber.js'
 
-const KOVAN_RPC = 'https://kovan.infura.io';
 const providerEngine = new Web3ProviderEngine();
-providerEngine.addProvider(new RPCSubprovider({ rpcUrl: KOVAN_RPC }));
+providerEngine.addProvider(new RPCSubprovider({ rpcUrl: 'http://localhost:8545' }));
 //providerEngine.addProvider(new InjectedWeb3Subprovider(window.web3.currentProvider));
 providerEngine.start();
 
