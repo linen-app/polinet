@@ -3,10 +3,10 @@ import * as Web3 from 'web3';
 import * as Web3ProviderEngine from 'web3-provider-engine';
 import { InjectedWeb3Subprovider } from '@0xproject/subproviders';
 import * as RPCSubprovider from 'web3-provider-engine/subproviders/rpc';
-import BigNumber from 'bignumber.js'
+import { BigNumber } from '@0xproject/utils'
 
 const providerEngine = new Web3ProviderEngine();
-providerEngine.addProvider(new RPCSubprovider({ rpcUrl: 'http://localhost:8545' }));
+providerEngine.addProvider(new RPCSubprovider({ rpcUrl: 'https://kovan.infura.io/gIWjuD8y664Biko4Quf8' }));
 //providerEngine.addProvider(new InjectedWeb3Subprovider(window.web3.currentProvider));
 providerEngine.start();
 
@@ -52,7 +52,9 @@ export function convertToJson(order) {
 
 export async function validateOrderAsync(order) {
   try {
+    console.log(order)
     await zeroEx.exchange.validateOrderFillableOrThrowAsync(order.signedOrder);
+    
   } catch (e) {
     console.error(e)
     throw e;
