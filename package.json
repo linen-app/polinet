@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "0x.js": "^0.37.2",
+    "0x.js": "0.36.3",
     "@0xproject/subproviders": "^0.10.2",
     "@dharmaprotocol/dharma.js": "https://github.com/confirmationlabs/dharma.js",
     "autoprefixer": "7.1.6",
