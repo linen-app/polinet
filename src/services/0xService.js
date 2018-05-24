@@ -28,8 +28,7 @@ export async function parseJsonOrder(jsonOrder) {
   }
 
   jsonOrder.hash = await ZeroEx.getOrderHashHex(jsonOrder.signedOrder);
-  console.log(`Signed order: ${JSON.stringify(jsonOrder)}`)
-  
+
   return jsonOrder;
 }
 
@@ -52,7 +51,12 @@ export function convertToJson(order) {
 }
 
 export async function validateOrderAsync(order) {
-  await zeroEx.exchange.validateOrderFillableOrThrowAsync(order.signedOrder);
-  
+  try {
+    await zeroEx.exchange.validateOrderFillableOrThrowAsync(order.signedOrder);
+  } catch (e) {
+    console.error(e)
+    throw e;
+  }
+
   return order;
 }
