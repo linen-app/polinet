@@ -82,12 +82,14 @@ export default class OrdersList extends React.Component {
             orders: {}
         };
 
-        subscribe(orderJson => 
-            parseJsonOrder(orderJson).then((order) => {
-                this.setState(prevState => ({
-                    orders: Object.assign({ [order.hash]: order }, prevState.orders)
-                }))
-            }),
+        subscribe(orderJson =>
+            parseJsonOrder(orderJson)
+                .then(validateOrderAsync)
+                .then((order) => {
+                    this.setState(prevState => ({
+                        orders: Object.assign({ [order.hash]: order }, prevState.orders)
+                    }))
+                }),
             () => Object.values(this.state.orders)
         );
 
@@ -98,7 +100,7 @@ export default class OrdersList extends React.Component {
             const orderPromises = orders.map(order => validateOrderAsync(order).catch(() => null));
             Promise.all(orderPromises)
                 .then(orders => orders.filter(x => x))
-                .then(orders => orders.reduce((prev, curr) => Object.assign({ [curr.hash]: curr }, prev), {}))
+                .then(orders => orders.reduce((prev, curr) => Object.assign(prev, { [curr.hash]: curr }), {}))
                 .then(orders => {
                     console.log(`Filtered orders length: ${Object.keys(orders).length}`)
                     this.setState({ orders })
