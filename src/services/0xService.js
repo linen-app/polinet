@@ -16,8 +16,9 @@ const web3 = new Web3(providerEngine);
 const zeroEx = new ZeroEx(web3.currentProvider, { networkId: 42 });
 
 export async function parseJsonOrder(jsonOrder) {
+  const result = Object.assign({}, jsonOrder)
   const sOrder = jsonOrder.signedOrder
-  jsonOrder.signedOrder = {
+  result.signedOrder = {
     ...sOrder,
     expirationUnixTimestampSec: new BigNumber(sOrder.expirationUnixTimestampSec),
     makerFee: new BigNumber(sOrder.makerFee),
@@ -27,34 +28,34 @@ export async function parseJsonOrder(jsonOrder) {
     takerTokenAmount: new BigNumber(sOrder.takerTokenAmount)
   }
 
-  jsonOrder.hash = await ZeroEx.getOrderHashHex(jsonOrder.signedOrder);
-
-  return jsonOrder;
+  result.hash = await ZeroEx.getOrderHashHex(jsonOrder.signedOrder);
+  
+  return result;
 }
 
 export function convertToJson(order) {
+  const result = Object.assign({}, order)
+
   const signedOrder = {
-    ...order.signedOrder,
-    expirationUnixTimestampSec: order.signedOrder.expirationUnixTimestampSec.toString(),
-    makerFee: order.signedOrder.makerFee.toString(),
-    makerTokenAmount: order.signedOrder.makerTokenAmount.toString(),
-    salt: order.signedOrder.salt.toString(),
-    takerFee: order.signedOrder.takerFee.toString(),
-    takerTokenAmount: order.signedOrder.takerTokenAmount.toString(),
+    ...result.signedOrder,
+    expirationUnixTimestampSec: result.signedOrder.expirationUnixTimestampSec.toString(),
+    makerFee: result.signedOrder.makerFee.toString(),
+    makerTokenAmount: result.signedOrder.makerTokenAmount.toString(),
+    salt: result.signedOrder.salt.toString(),
+    takerFee: result.signedOrder.takerFee.toString(),
+    takerTokenAmount: result.signedOrder.takerTokenAmount.toString(),
   }
 
-  delete signedOrder.hash;
+  delete result.hash;
 
-  order.signedOrder = signedOrder
+  result.signedOrder = signedOrder
 
-  return order;
+  return result;
 }
 
 export async function validateOrderAsync(order) {
   try {
-    console.log(order)
     await zeroEx.exchange.validateOrderFillableOrThrowAsync(order.signedOrder);
-    
   } catch (e) {
     console.error(e)
     throw e;
